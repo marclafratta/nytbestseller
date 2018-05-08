@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>NYT Bestsellers January 7, 2018</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>NYT Bestsellers January 7, 2018</h1>
+    <p></p>
+
+    
+    <% books.forEach(function(book) { %>
+    <p><h3><%= book.title %></h3> by <%= book.author %><br>
+    Position: <%= book.rank %> <br>
+    Weeks on List: <%= book.weeksOnList %></p>
+    <% }); %>
+    
   </body>
 </html>
