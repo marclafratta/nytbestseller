@@ -1,6 +1,6 @@
 const mongodb = require("mongodb");
 const MongoClient = require('mongodb').MongoClient;
-const log = require('debug')('notes:mongodb-model');
+const debug = require('debug')('notes:mongodb-model');
 const error = require('debug')('notes:error');
 const Book = require('./Book');
 const util = require('util')
@@ -30,11 +30,11 @@ exports.create = function (book) {
         return collection.insertOne(book).then(doc => {
             
             
-            console.log("1 book inserted");
+            debug("1 book inserted");
             return book
         }).catch(err => {
-            console.log("error on create")
-            console.log(err)
+            error("error on create")
+            error(err)
             next(err)
         })
     })
@@ -48,15 +48,15 @@ exports.readAllByRank = function () {
         let cursor = collection.find({}).addQueryModifier('$orderby', {rank: 1})
         
         return cursor.toArray().then(bookDocs =>{
-            console.log(JSON.stringify(bookDocs))
+            debug(JSON.stringify(bookDocs))
         
             bookDocs.forEach(bookDoc => {
                 let newBook = new Book(bookDoc.title, bookDoc.author, bookDoc.rank, bookDoc.weeksOnList)
-                console.log(newBook)
+                debug(newBook)
                 books.push(newBook)
             });
 
-            console.log(books)
+            debug(books)
             return books
         })
     })    
